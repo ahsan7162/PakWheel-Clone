@@ -1,0 +1,62 @@
+﻿@model IEnumerable<IPT_project.Models.CarDetail.Rootobject>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>List of Cars</h2>
+<div class="card-group">
+    @foreach(var item in Model)
+     {
+        <div class="col-sm-4">
+            <div class="card border border-light mb-3" style="width:20rem">
+                <div style="height: 150px; background-color:black; background-size: cover; justify-items:center "> <img src=@item.image style=" height:100%; display: flex; "></div>
+
+                <div class="card-body">
+                    <h5 class="card-title">@item.description</h5>
+                    <p class="card-text"><b>Condition:</b> @item.itemCondition</p>
+                    <p class="card-text"><b>Fuel Type:</b> @item.fuelType</p>
+                    <p class="card-text"><b>Condition:</b> @item.itemCondition</p>
+                    <p class="card-text"><b>Vehicle Engine:</b> @item.vehicleEngine.engineDisplacement</p>
+                    <p class="card-text"><b>Model Date:</b> @item.modelDate</p>
+                    <p class="card-text"><b>Mileage used:</b> @item.mileageFromOdometer</p>
+                    <h3 class="card-text text-center text-capitalize" style="color:lightgreen"><b>Pice:</b> @item.offers.price <span>@item.offers.priceCurrency</span></h3>
+                    <div class="col text-center">
+                        <a href="#" class="btn btn-primary">Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <br />
+     }
+    
+</div>
+
+
+    @*<table class="table">
+            <tr>
+                <th>Title</th>
+                <th>Brand</th>
+                <th>Model ID</th>
+                <th>Condition</th>
+            </tr>
+
+
+        @foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.description
+            </td>
+            <td>
+                @item.brand.name
+            </td>
+            <td>
+                @item.modelDate
+            </td>
+            <td>
+                @item.itemCondition
+            </td>
+        </tr>
+        }
+
+        </table>*@
