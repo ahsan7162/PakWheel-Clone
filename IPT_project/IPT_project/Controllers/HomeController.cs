@@ -15,9 +15,10 @@ namespace IPT_project.Controllers
         public ActionResult Index()
         {
             
-            string Json = System.IO.File.ReadAllText("D:/semester 7/IPT/Project/PythonScrapping/data.json");
+            string Json = System.IO.File.ReadAllText("D:/semester_7/IPT/Project/PythonScrapping/data.json");
             JavaScriptSerializer ser = new JavaScriptSerializer();
             var carlist = ser.Deserialize<List<CarDetail.Rootobject>>(Json);
+            
 
             return View(carlist);
         }
@@ -32,6 +33,12 @@ namespace IPT_project.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+        public ActionResult Detail(string carID)
+        {
+            ViewBag.id = carID;
 
             return View();
         }
