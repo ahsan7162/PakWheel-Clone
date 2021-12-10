@@ -15,7 +15,7 @@ namespace IPT_project.Controllers
         public ActionResult Index()
         {
             
-            string Json = System.IO.File.ReadAllText("D:/semester_7/IPT/Project/PythonScrapping/data.json");
+            string Json = System.IO.File.ReadAllText("F:\\IPT_CourseProject\\AhsanGIT\\IPT_project\\PythonScrapping\\data.json");
             JavaScriptSerializer ser = new JavaScriptSerializer();
             var carlist = ser.Deserialize<List<CarDetail.Rootobject>>(Json);
             
