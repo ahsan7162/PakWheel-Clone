@@ -58,24 +58,26 @@ namespace DatabasePopulator
                 var username = System.Configuration.ConfigurationManager.AppSettings["username"];
                 var password = System.Configuration.ConfigurationManager.AppSettings["password"];
 
-                string connString = @"Data Source=" + dataSource + ";Initial Catalog="
-                        + database + ";Persist Security Info=True;User ID=" + username + ";Password=" + password;
+                //string connString = @"Data Source=" + dataSource + ";Initial Catalog="
+                //        + database + ";Persist Security Info=True;User ID=" + username + ";Password=" + password;
+                
+                string connString = "Sever = localhost;Database = master;Trusted_Connection=True";
 
                 SqlConnection conn = new SqlConnection(connString);
 
 
                 try
                 {
-                    WriteErrorLog("Openning Connection ...");
+                    Console.WriteLine("Openning Connection ...");
 
                     //open connection
                     conn.Open();
 
-                    WriteErrorLog("Connection successful!");
+                    Console.WriteLine("Connection successful!");
 
 
 
-                    
+                    Console.WriteLine($"{fileRows[0]}");
                     for (int i = 1; i < fileRows.Length - 2; i++)
                     {
                         var data = fileRows[i].Split(',');
@@ -86,24 +88,47 @@ namespace DatabasePopulator
 
                         string insertValues = string.Empty;
 
-                        
+                        /* if (i == fileRows.Length - 3)
+                         {*/
+                        /*
+                         * 0-brandName, 1
+                         * 1-descriptionText, 8
+                         * 2-itemCondition, 2
+                         * 3-modelYear, 3
+                         * 4-manufacturer, 4
+                         * 5-fuelType, 5
+                         * 6-imageUrl, 11
+                         * 7-transmission, 6
+                         * 8-engineDisplacement, 7
+                         * 9-mileage, 9
+                         * 10-price, 12
+                         * 11-detailsUrl, 10
+                         * 12-adId, 0
+                         */
+                        /*int id = Convert.ToInt32(data[12]);
+                        insertValues = $"({data[0]}, {data[1]}, {data[2]}, {data[3]}, {data[4]}, {data[5]}, {data[6].ToString()}, {data[7]}, {data[8]}, {data[9]}, {data[10]}, {data[11].ToString()}, {id})";
+                        Console.WriteLine($"{insertValues}");*/
+                        /*}
+                        else
+                        {*/
                         int id = Convert.ToInt32(data[12]);
                         insertValues = $"('{data[0]}', '{data[1]}', '{data[2]}', '{data[3]}', '{data[4]}', '{data[5]}', '{data[6].Substring(8)}', '{data[7]}', '{data[8]}', '{data[9]}', '{data[10]}', '{data[11].Substring(8)}', '{id}')";
-                        
+                        /*Console.WriteLine($"{insertValues}");*/
+                        /*}*/
                         strBuilder.Append(insertValues);
                         string sqlQuery = strBuilder.ToString();
-                        
+                        Console.WriteLine(id);
                         using (SqlCommand command = new SqlCommand(sqlQuery, conn))
                         {
                             command.ExecuteNonQuery();
-                            WriteErrorLog("Query Inserted");
+                            Console.WriteLine("Query Inserted");
                         }
                     }
 
                 }
                 catch (Exception e)
                 {
-                    WriteErrorLog("Error: " + e.Message);
+                    Console.WriteLine("Error: " + e.Message);
                 }
 
 

@@ -12,7 +12,7 @@ namespace DatabasePopulatorConsoleApp
     {
         static void Main(string[] args)
         {
-            string filePath = "F:\\IPT_CourseProject\\AzureFunctions\\PakwheelsDataScrapperConsoleApp\\PakwheelsDataScrapperConsoleApp\\bin\\Debug\\adsData.csv";
+            string filePath = "D:\\semester_7\\IPT\\IPT_project\\AzureFunctions\\PakwheelsDataScrapperConsoleApp\\PakwheelsDataScrapperConsoleApp\\bin\\Debug\\adsData.csv";
             if (File.Exists(filePath))
             {
                 string fileContent = File.ReadAllText(filePath);
@@ -24,8 +24,9 @@ namespace DatabasePopulatorConsoleApp
                 var username = "sa";
                 var password = "owais123";
 
-                string connString = @"Data Source=" + dataSource + ";Initial Catalog="
-                        + database + ";Persist Security Info=True;User ID=" + username + ";Password=" + password;
+                //string connString = @"Data Source=" + dataSource + ";Initial Catalog="
+                //        + database + ";Persist Security Info=True;User ID=" + username + ";Password=" + password;
+                string connString = "Server = localhost;Database = master;Trusted_Connection=True";
 
                 SqlConnection conn = new SqlConnection(connString);
 
@@ -39,39 +40,39 @@ namespace DatabasePopulatorConsoleApp
 
                     Console.WriteLine("Connection successful!");
 
-                   
+
 
                     Console.WriteLine($"{fileRows[0]}");
                     for (int i = 1; i < fileRows.Length - 2; i++)
                     {
                         var data = fileRows[i].Split(',');
                         StringBuilder strBuilder = new StringBuilder();
-                        strBuilder.Append($"IF NOT EXISTS (SELECT * FROM AdsData WHERE AdsData.ad_id = {data[12]})" +
-                            "INSERT INTO AdsData (brand_name, description, item_condition, model_year, manufacturer, fuel_type," +
+                        strBuilder.Append($"IF NOT EXISTS (SELECT * FROM IPT_CourseProject.dbo.AdsData WHERE AdsData.ad_id = {data[12]})" +
+                            "INSERT INTO IPT_CourseProject.dbo.AdsData (brand_name, description, item_condition, model_year, manufacturer, fuel_type," +
                             "image_url, transmission, engine_capacity, engine_mileage, price, details_url, ad_id) VALUES ");
-                        
+
                         string insertValues = string.Empty;
-                        
-                       /* if (i == fileRows.Length - 3)
-                        {*/
-                            /*
-                             * 0-brandName, 1
-                             * 1-descriptionText, 8
-                             * 2-itemCondition, 2
-                             * 3-modelYear, 3
-                             * 4-manufacturer, 4
-                             * 5-fuelType, 5
-                             * 6-imageUrl, 11
-                             * 7-transmission, 6
-                             * 8-engineDisplacement, 7
-                             * 9-mileage, 9
-                             * 10-price, 12
-                             * 11-detailsUrl, 10
-                             * 12-adId, 0
-                             */
-                            /*int id = Convert.ToInt32(data[12]);
-                            insertValues = $"({data[0]}, {data[1]}, {data[2]}, {data[3]}, {data[4]}, {data[5]}, {data[6].ToString()}, {data[7]}, {data[8]}, {data[9]}, {data[10]}, {data[11].ToString()}, {id})";
-                            Console.WriteLine($"{insertValues}");*/
+
+                        /* if (i == fileRows.Length - 3)
+                         {*/
+                        /*
+                         * 0-brandName, 1
+                         * 1-descriptionText, 8
+                         * 2-itemCondition, 2
+                         * 3-modelYear, 3
+                         * 4-manufacturer, 4
+                         * 5-fuelType, 5
+                         * 6-imageUrl, 11
+                         * 7-transmission, 6
+                         * 8-engineDisplacement, 7
+                         * 9-mileage, 9
+                         * 10-price, 12
+                         * 11-detailsUrl, 10
+                         * 12-adId, 0
+                         */
+                        /*int id = Convert.ToInt32(data[12]);
+                        insertValues = $"({data[0]}, {data[1]}, {data[2]}, {data[3]}, {data[4]}, {data[5]}, {data[6].ToString()}, {data[7]}, {data[8]}, {data[9]}, {data[10]}, {data[11].ToString()}, {id})";
+                        Console.WriteLine($"{insertValues}");*/
                         /*}
                         else
                         {*/
@@ -88,14 +89,14 @@ namespace DatabasePopulatorConsoleApp
                             Console.WriteLine("Query Inserted");
                         }
                     }
-                    
+
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine("Error: " + e.Message);
                 }
 
-                
+
             }
             else
             {

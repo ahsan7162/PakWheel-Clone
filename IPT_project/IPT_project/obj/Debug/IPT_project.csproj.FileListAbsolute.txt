@@ -235,3 +235,13 @@ F:\IPT_CourseProject\AhsanGIT\IPT_project\IPT_project\IPT_project\obj\Debug\IPT_
 F:\IPT_CourseProject\AhsanGIT\IPT_project\IPT_project\IPT_project\obj\Debug\IPT_project.csproj.CopyComplete
 F:\IPT_CourseProject\AhsanGIT\IPT_project\IPT_project\IPT_project\obj\Debug\IPT_project.dll
 F:\IPT_CourseProject\AhsanGIT\IPT_project\IPT_project\IPT_project\obj\Debug\IPT_project.pdb
+D:\semester_7\IPT\IPT_project\IPT_project\IPT_project\bin\EntityFramework.dll
+D:\semester_7\IPT\IPT_project\IPT_project\IPT_project\bin\EntityFramework.SqlServer.dll
+D:\semester_7\IPT\IPT_project\IPT_project\IPT_project\bin\System.Net.Http.Formatting.dll
+D:\semester_7\IPT\IPT_project\IPT_project\IPT_project\bin\System.Web.Http.dll
+D:\semester_7\IPT\IPT_project\IPT_project\IPT_project\bin\System.Web.Http.WebHost.dll
+D:\semester_7\IPT\IPT_project\IPT_project\IPT_project\bin\EntityFramework.xml
+D:\semester_7\IPT\IPT_project\IPT_project\IPT_project\bin\EntityFramework.SqlServer.xml
+D:\semester_7\IPT\IPT_project\IPT_project\IPT_project\bin\System.Net.Http.Formatting.xml
+D:\semester_7\IPT\IPT_project\IPT_project\IPT_project\bin\System.Web.Http.xml
+D:\semester_7\IPT\IPT_project\IPT_project\IPT_project\bin\System.Web.Http.WebHost.xml

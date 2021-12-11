@@ -1,4 +1,4 @@
-﻿@model IEnumerable<IPT_project.Models.CarDetail.Rootobject>
+﻿@model IEnumerable<IPT_project.Models.carCard>
 
 @{
     ViewBag.Title = "Index";
@@ -53,26 +53,25 @@
 <br />
 
 
-<div class="card-group">
+@*<div class="card-group">
     @foreach (var item in Model)
     {
         <div class="col-sm-4">
             <div class="card border border-light mb-3" style="width:20rem">
-                <div style="height: 150px; background-color:black; background-size: cover; justify-items:center "> <img src=@item.image style=" height:100%; display: flex; "></div>
+                <div style="height: 150px; background-color:black; background-size: cover; justify-items:center "> <img src=@item.image_url style=" height:100%; display: flex; "></div>
 
                 <div class="card-body">
                     <h5 class="card-title">@item.description</h5>
-                    <p class="card-text"><b>Condition:</b> @item.itemCondition</p>
-                    <p class="card-text"><b>Fuel Type:</b> @item.fuelType</p>
-                    <p class="card-text"><b>Condition:</b> @item.itemCondition</p>
-                    <p class="card-text"><b>Vehicle Engine:</b> @item.vehicleEngine.engineDisplacement</p>
-                    <p class="card-text"><b>Model Date:</b> @item.modelDate</p>
-                    <p class="card-text"><b>Mileage used:</b> @item.mileageFromOdometer</p>
-                    <h3 class="card-text text-center text-capitalize" style="color:lightgreen"><b>Pice:</b> @item.offers.price <span>@item.offers.priceCurrency</span></h3>
+                    <p class="card-text"><b>Condition:</b> @item.item_condition</p>
+                    <p class="card-text"><b>Fuel Type:</b> @item.fuel_type</p>
+                    <p class="card-text"><b>Manufacturer:</b> @item.manufacturer</p>
+                    <p class="card-text"><b>Transmission:</b> @item.transmission</p>
+                    <p class="card-text"><b>Vehicle Engine:</b> @item.engine_capacity</p>
+                    <p class="card-text"><b>Model Date:</b> @item.model_year</p>
+                    <p class="card-text"><b>Mileage used:</b> @item.engine_milegage</p>
+                    <h3 class="card-text text-center text-capitalize" style="color:lightgreen"><b>Price:</b> @item.price <span>PKR</span></h3>
                     <div class="col text-center">
-                        @{ string[] arr = item.offers.url.Split('-');
-                            int index = arr.Length - 1; }
-                        <a href=@Url.Action("Detail","Home",new {carID = arr[index]  }) class="btn btn-primary">Details</a>
+                        <a href=@Url.Action("Detail","Home",new {carID = item.ad_id  }) class="btn btn-primary">Details</a>
                     </div>
                 </div>
             </div>
@@ -80,8 +79,8 @@
         <br />
     }
 
-</div>
-
+</div>*@
+<h1>@ViewBag.i</h1>
 
 @*<table class="table">
         <tr>
