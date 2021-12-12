@@ -21,7 +21,7 @@ namespace PakwheelsAdDetailsScrapperConsoleApp
         static void Main(string[] args)
         {
             string nameToSend = "https://www.pakwheels.com/used-cars/suzuki-mehran-1997-for-sale-in-toba-tek-singh-5701434";
-            string baseURL = "http://localhost:7071/api/ScrapDetails";
+            string baseURL = "https://pakwheelsaddetailsscrapper20211211160440.azurewebsites.net/api/ScrapDetails";
             string urlToInvoke = string.Format("{0}?adUrl={1}", baseURL, nameToSend);
             Run(urlToInvoke).Wait();
             
