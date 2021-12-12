@@ -18,6 +18,7 @@ namespace IPT_project.Controllers
 {
     public class HomeController : Controller
     {
+        public static dynamic globalJsonObject;
         public ActionResult Index(string brand_name)
         {
             if(brand_name == null)
@@ -26,7 +27,16 @@ namespace IPT_project.Controllers
                 //JavaScriptSerializer ser = new JavaScriptSerializer();
                 //var carlist = ser.Deserialize<List<CarDetail.Rootobject>>(Json);
                 List<carCard> cars = new List<carCard>();
-                string connString = "Server = localhost;Database = master;Trusted_Connection=True";
+
+                var dataSource = "DESKTOP-D0VQCM8\\MSSQLSERVERDEV";
+                var database = "IPT_CourseProject";
+                var username = "sa";
+                var password = "owais123";
+
+                string connString = @"Data Source=" + dataSource + ";Initial Catalog="
+                        + database + ";Persist Security Info=True;User ID=" + username + ";Password=" + password;
+
+                /*string connString = "Server = localhost;Database = master;Trusted_Connection=True";*/
 
                 SqlConnection conn = new SqlConnection(connString);
                 Console.WriteLine("Openning Connection ...");
@@ -108,11 +118,12 @@ namespace IPT_project.Controllers
             HttpClient httpClient = new HttpClient();
             HttpResponseMessage response = await httpClient.GetAsync(url);
             string responseString = await response.Content.ReadAsStringAsync();
-            dynamic jsonObject = JsonConvert.DeserializeObject(responseString);
-            return jsonObject;
-            Console.WriteLine($"{jsonObject["imageUrls"]}");
+            globalJsonObject = JsonConvert.DeserializeObject(responseString);
+            return globalJsonObject;
+            /*return jsonObject;*/
+            /*Console.WriteLine($"{jsonObject["imageUrls"]}");
             Console.WriteLine($"{jsonObject["carFeatures"]}");
-            Console.WriteLine($"{jsonObject["descriptionText"]}");
+            Console.WriteLine($"{jsonObject["descriptionText"]}");*/
 
 
         }
@@ -123,9 +134,19 @@ namespace IPT_project.Controllers
                 ViewBag.id = carID;
 
                 carCard car = new carCard();
-                string connString = "Server = localhost;Database = master;Trusted_Connection=True";
+                var dataSource = "DESKTOP-D0VQCM8\\MSSQLSERVERDEV";
+                var database = "IPT_CourseProject";
+                var username = "sa";
+                var password = "owais123";
+
+                string connString = @"Data Source=" + dataSource + ";Initial Catalog="
+                        + database + ";Persist Security Info=True;User ID=" + username + ";Password=" + password;
+
+                /*string connString = "Server = localhost;Database = master;Trusted_Connection=True";*/
 
                 SqlConnection conn = new SqlConnection(connString);
+
+                
                 Console.WriteLine("Openning Connection ...");
 
                 //open connection
@@ -135,10 +156,11 @@ namespace IPT_project.Controllers
                 SqlCommand command;
                 SqlDataReader reader;
                 string sql;
-                sql = "select * from IPT_CourseProject.dbo.AdsData where ad_id = @ad_id";
+                sql = "select * from dbo.AdsData where ad_id = @ad_id";
                 command = new SqlCommand(sql, conn);
                 command.Parameters.AddWithValue("ad_id", carID);
                 reader = command.ExecuteReader();
+                string details_url = string.Empty;
                 while (reader.Read())
                 {
                     //car(new carC { ad_id = reader.GetValue(0).ToString(), brand_name = reader.GetValue(1).ToString(), item_condition = reader.GetValue(2).ToString(), model_year = reader.GetValue(3).ToString(), manufacturer = reader.GetValue(4).ToString(), fuel_type = reader.GetValue(5).ToString(), transmission = reader.GetValue(6).ToString(), engine_capacity = reader.GetValue(7).ToString(), description = reader.GetValue(8).ToString(), engine_milegage = reader.GetValue(9).ToString(), image_url = reader.GetValue(11).ToString(), price = reader.GetValue(12).ToString() });
@@ -154,6 +176,7 @@ namespace IPT_project.Controllers
                     car.engine_milegage = reader.GetValue(9).ToString();
                     car.image_url = reader.GetValue(11).ToString();
                     car.price = reader.GetValue(12).ToString();
+                    details_url = reader.GetValue(10).ToString();
                     break;
                 }
 
@@ -161,12 +184,23 @@ namespace IPT_project.Controllers
 
 
 
-                //string nameToSend = "https://www.pakwheels.com/used-cars/suzuki-mehran-1997-for-sale-in-toba-tek-singh-5701434";
-                //string baseURL = "https://pakwheelsaddetailsscrapper20211211160440.azurewebsites.net/api/ScrapDetails";
-                //string urlToInvoke = string.Format("{0}?adUrl={1}", baseURL, nameToSend);
-                //var jsonObject = Run(urlToInvoke);
-                //ViewBag.json = jsonObject["imageUrls"];
+                /*string nameToSend = de;*/
+                string baseURL = "http://localhost:7071/api/ScrapDetails";
+                string urlToInvoke = string.Format("{0}?adUrl={1}", baseURL, details_url);
+                dynamic jsonObject = Task.Run(async() => await Run(urlToInvoke)).Result;
+
+                
+
+                
+                ViewBag.jsonImages = jsonObject["imageUrls"];
+                
+
+
                 ViewBag.car = car;
+                ViewBag.sellerComment = jsonObject["descriptionText"];
+
+                ViewBag.carFeatures = jsonObject["carFeatures"];
+
                 return View();
             }
             else
