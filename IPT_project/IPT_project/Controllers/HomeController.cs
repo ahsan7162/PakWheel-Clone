@@ -18,14 +18,24 @@ namespace IPT_project.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index(string brand_name,string price)
+        public static dynamic globalJsonObject;
+        public ActionResult Index(string brand_name, string price, string transmission,string max_year , string min_year ,string fuel)
         {
-            if(brand_name == null  && price == null)
+            if(brand_name == null  && (price == "0" || price == null) && (transmission == "0" || transmission == null) && (max_year == "0" || max_year == null) && (min_year == "0" || min_year == null) && (fuel == "0" || fuel == null))
             {
                 //string Json = System.IO.File.ReadAllText("D:\\semester_7\\IPT\\IPT_project\\PythonScrapping\\data.json");
                 //JavaScriptSerializer ser = new JavaScriptSerializer();
                 //var carlist = ser.Deserialize<List<CarDetail.Rootobject>>(Json);
                 List<carCard> cars = new List<carCard>();
+
+                //var dataSource = "DESKTOP-D0VQCM8\\MSSQLSERVERDEV";
+                //var database = "IPT_CourseProject";
+                //var username = "sa";
+                //var password = "owais123";
+
+                //string connString = @"Data Source=" + dataSource + ";Initial Catalog="
+                //        + database + ";Persist Security Info=True;User ID=" + username + ";Password=" + password;
+
                 string connString = "Server = localhost;Database = master;Trusted_Connection=True";
 
                 SqlConnection conn = new SqlConnection(connString);
@@ -68,9 +78,47 @@ namespace IPT_project.Controllers
                 SqlDataReader reader;
                 string sql;
                 sql = "select * from IPT_CourseProject.dbo.AdsData";
+                if(brand_name != "" || transmission !="0" || min_year =="0" || max_year == "0" || fuel != "0")
+                {
+                    sql = sql + " where";
+                }
                 if (brand_name != null && brand_name != "")
                 {
-                    sql = sql + " where brand_name = @brand_name";
+                    sql = sql + " brand_name = @brand_name";
+                }
+                if(transmission != null && transmission != "" && transmission !="0")
+                {
+                    if(brand_name != "")
+                    {
+                        sql = sql + " AND transmission = @transmission";
+                    }
+                    else
+                    {
+                        sql = sql + " transmission = @transmission";
+                    }
+                }
+                if(min_year != null && min_year != "" && max_year != null && max_year != "")
+                {
+                    if(brand_name != "" || transmission != "0")
+                    {
+                        sql = sql + " AND model_year >= @min_year AND model_year <= @max_year";
+                    }
+                    else
+                    {
+
+                        sql = sql + " model_year >= @min_year AND model_year <= @max_year";
+                    }
+                }
+                if (fuel !="0")
+                {
+                    if (brand_name != "" || transmission != "0" || min_year!="" || max_year !="")
+                    {
+                        sql = sql + " AND fuel_type = @fuel";
+                    }
+                    else
+                    {
+                        sql = sql + " fuel_type = @fuel";
+                    }
                 }
                 if (price != null && price != "")
                 {
@@ -82,6 +130,32 @@ namespace IPT_project.Controllers
                 Console.WriteLine(sql);
                 command = new SqlCommand(sql, conn);
                 command.Parameters.AddWithValue("brand_name", brand_name);
+                if(min_year == "0")
+                {
+                    command.Parameters.AddWithValue("min_year", "2000");
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("min_year", min_year);
+                }
+                if(max_year == "0")
+                {
+                    command.Parameters.AddWithValue("max_year", "2022");
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("max_year", max_year);
+                }
+                if(transmission == "1")
+                {
+                    command.Parameters.AddWithValue("transmission", "Manual");
+                }
+                if (transmission == "2")
+                {
+                    command.Parameters.AddWithValue("transmission", "Automatic");
+                }
+                command.Parameters.AddWithValue("fuel", fuel);
+
                 reader = command.ExecuteReader();
                 while (reader.Read())
                 {
@@ -115,11 +189,12 @@ namespace IPT_project.Controllers
             HttpClient httpClient = new HttpClient();
             HttpResponseMessage response = await httpClient.GetAsync(url);
             string responseString = await response.Content.ReadAsStringAsync();
-            dynamic jsonObject = JsonConvert.DeserializeObject(responseString);
-            return jsonObject;
-            Console.WriteLine($"{jsonObject["imageUrls"]}");
+            globalJsonObject = JsonConvert.DeserializeObject(responseString);
+            return globalJsonObject;
+            /*return jsonObject;*/
+            /*Console.WriteLine($"{jsonObject["imageUrls"]}");
             Console.WriteLine($"{jsonObject["carFeatures"]}");
-            Console.WriteLine($"{jsonObject["descriptionText"]}");
+            Console.WriteLine($"{jsonObject["descriptionText"]}");*/
 
 
         }
@@ -130,9 +205,19 @@ namespace IPT_project.Controllers
                 ViewBag.id = carID;
 
                 carCard car = new carCard();
-                string connString = "Server = localhost;Database = master;Trusted_Connection=True";
+                //var dataSource = "DESKTOP-D0VQCM8\\MSSQLSERVERDEV";
+                //var database = "IPT_CourseProject";
+                //var username = "sa";
+                //var password = "owais123";
+
+                //string connString = @"Data Source=" + dataSource + ";Initial Catalog="
+                //        + database + ";Persist Security Info=True;User ID=" + username + ";Password=" + password;
+
+                string connString = "server = localhost;database = master;trusted_connection=true";
 
                 SqlConnection conn = new SqlConnection(connString);
+
+                
                 Console.WriteLine("Openning Connection ...");
 
                 //open connection
@@ -146,6 +231,7 @@ namespace IPT_project.Controllers
                 command = new SqlCommand(sql, conn);
                 command.Parameters.AddWithValue("ad_id", carID);
                 reader = command.ExecuteReader();
+                string details_url = string.Empty;
                 while (reader.Read())
                 {
                     //car(new carC { ad_id = reader.GetValue(0).ToString(), brand_name = reader.GetValue(1).ToString(), item_condition = reader.GetValue(2).ToString(), model_year = reader.GetValue(3).ToString(), manufacturer = reader.GetValue(4).ToString(), fuel_type = reader.GetValue(5).ToString(), transmission = reader.GetValue(6).ToString(), engine_capacity = reader.GetValue(7).ToString(), description = reader.GetValue(8).ToString(), engine_milegage = reader.GetValue(9).ToString(), image_url = reader.GetValue(11).ToString(), price = reader.GetValue(12).ToString() });
@@ -161,19 +247,17 @@ namespace IPT_project.Controllers
                     car.engine_milegage = reader.GetValue(9).ToString();
                     car.image_url = reader.GetValue(11).ToString();
                     car.price = reader.GetValue(12).ToString();
+                    details_url = reader.GetValue(10).ToString();
                     break;
                 }
-
-
-
-
-
-                //string nameToSend = "https://www.pakwheels.com/used-cars/suzuki-mehran-1997-for-sale-in-toba-tek-singh-5701434";
-                //string baseURL = "https://pakwheelsaddetailsscrapper20211211160440.azurewebsites.net/api/ScrapDetails";
-                //string urlToInvoke = string.Format("{0}?adUrl={1}", baseURL, nameToSend);
-                //var jsonObject = Run(urlToInvoke);
-                //ViewBag.json = jsonObject["imageUrls"];
+                /*string nameToSend = de;*/
+                string baseURL = "https://pakwheelsaddetailsscrapper20211211160440.azurewebsites.net/api/ScrapDetails";
+                string urlToInvoke = string.Format("{0}?adUrl={1}", baseURL, details_url);
+                dynamic jsonObject = Task.Run(async() => await Run(urlToInvoke)).Result;
+                ViewBag.jsonImages = jsonObject["imageUrls"];
                 ViewBag.car = car;
+                ViewBag.sellerComment = jsonObject["descriptionText"];
+                ViewBag.carFeatures = jsonObject["carFeatures"];
                 return View();
             }
             else
@@ -183,5 +267,29 @@ namespace IPT_project.Controllers
             }
             
         }
+
+        public static async Task<dynamic> Run1(string url)
+        {
+            HttpClient httpClient = new HttpClient();
+            HttpResponseMessage response = await httpClient.GetAsync(url);
+            string responseString = await response.Content.ReadAsStringAsync();
+            globalJsonObject = JsonConvert.DeserializeObject(responseString);
+            return globalJsonObject;
+            /*return jsonObject;*/
+            /*Console.WriteLine($"{jsonObject["imageUrls"]}");
+            Console.WriteLine($"{jsonObject["carFeatures"]}");
+            Console.WriteLine($"{jsonObject["descriptionText"]}");*/
+
+
+        }
+        public ActionResult Live_price()
+        {
+            string baseURL = "https://toyotawebsitescrapper20211213153031.azurewebsites.net/api/GetLivePricesToyota";
+            string urlToInvoke = string.Format("{0}", baseURL);
+            dynamic jsonObject = Task.Run(async () => await Run1(urlToInvoke)).Result;
+            ViewBag.json = jsonObject;
+            return View();
+        }
+
     }
 }

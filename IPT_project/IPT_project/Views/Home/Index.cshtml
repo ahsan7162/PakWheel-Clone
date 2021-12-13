@@ -59,6 +59,46 @@
         <option value="1">High To Low</option>
         <option value="2">Low To High</option>
     </select>
+    <label>Transmission</label>
+    <select name="transmission" id="transmission">
+        <option value="0">Default</option>
+        <option value="1">Manual</option>
+        <option value="2">Automatic</option>
+    </select>
+    <br />
+    <label>Minimum Model year</label>
+    <select name="min_year">
+        <option value="0">Default</option>
+        @{
+            for (var i = 2000; i < 2022; i++)
+            {
+                <option value=@i> @i </option>
+
+            }
+        }
+    </select>
+    <label>Maximum Model year</label>
+    <select name="max_year">
+        <option value="0">Default</option>
+        @{
+            for (var i = 2000; i < 2022; i++)
+            {
+                <option value=@i> @i </option>
+
+            }
+        }
+    </select>
+    <label>Fuel Type</label>
+    <select name="fuel">
+        <option value="0">Default</option>
+        <option value="petrol">Petrol</option>
+        <option value="diesel">Diesel</option>
+        <option value="LPG">LPG</option>
+        <option value="CNG">CNG</option>
+        <option value="Hybrid">Hybrid</option>
+        <option value="Electric">Electric</option>
+    </select>
+    <br />
     <button type="submit">Search</button>
 </form>
 
@@ -72,7 +112,7 @@
     {
         <div class="col-sm-4">
             <div class="card border border-light mb-3" style="width:20rem">
-                <div style="height: 150px; background-color:black; background-size: cover; justify-items:center "> <img alt="img" src="https://@item.image_url" style=" height:100%; display: flex; "></div>
+                <div style="height: 150px; background-color:black; background-size: cover; justify-items:center "> <img alt="img" src="@item.image_url" style=" height:100%; display: flex; "></div>
 
                 <div class="card-body">
                     <h5 class="card-title">@item.description</h5>

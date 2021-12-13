@@ -12,7 +12,7 @@ namespace DatabasePopulatorConsoleApp
     {
         static void Main(string[] args)
         {
-            string filePath = "D:\\semester_7\\IPT\\IPT_project\\AzureFunctions\\PakwheelsDataScrapperConsoleApp\\PakwheelsDataScrapperConsoleApp\\bin\\Debug\\adsData.csv";
+            string filePath = "F:\\IPT_CourseProject\\IPT_project\\AzureFunctions\\PakwheelsDataScrapperConsoleApp\\PakwheelsDataScrapperConsoleApp\\bin\\Debug\\adsData.csv";
             if (File.Exists(filePath))
             {
                 string fileContent = File.ReadAllText(filePath);
@@ -24,9 +24,9 @@ namespace DatabasePopulatorConsoleApp
                 var username = "sa";
                 var password = "owais123";
 
-                //string connString = @"Data Source=" + dataSource + ";Initial Catalog="
-                //        + database + ";Persist Security Info=True;User ID=" + username + ";Password=" + password;
-                string connString = "Server = localhost;Database = master;Trusted_Connection=True";
+                string connString = @"Data Source=" + dataSource + ";Initial Catalog="
+                        + database + ";Persist Security Info=True;User ID=" + username + ";Password=" + password;
+                /*string connString = "Server = localhost;Database = master;Trusted_Connection=True";*/
 
                 SqlConnection conn = new SqlConnection(connString);
 
@@ -47,8 +47,8 @@ namespace DatabasePopulatorConsoleApp
                     {
                         var data = fileRows[i].Split(',');
                         StringBuilder strBuilder = new StringBuilder();
-                        strBuilder.Append($"IF NOT EXISTS (SELECT * FROM IPT_CourseProject.dbo.AdsData WHERE AdsData.ad_id = {data[12]})" +
-                            "INSERT INTO IPT_CourseProject.dbo.AdsData (brand_name, description, item_condition, model_year, manufacturer, fuel_type," +
+                        strBuilder.Append($"IF NOT EXISTS (SELECT * FROM dbo.AdsData WHERE AdsData.ad_id = {data[12]})" +
+                            "INSERT INTO dbo.AdsData (brand_name, description, item_condition, model_year, manufacturer, fuel_type," +
                             "image_url, transmission, engine_capacity, engine_mileage, price, details_url, ad_id) VALUES ");
 
                         string insertValues = string.Empty;
@@ -77,7 +77,7 @@ namespace DatabasePopulatorConsoleApp
                         else
                         {*/
                         int id = Convert.ToInt32(data[12]);
-                        insertValues = $"('{data[0]}', '{data[1]}', '{data[2]}', '{data[3]}', '{data[4]}', '{data[5]}', '{data[6].Substring(8)}', '{data[7]}', '{data[8]}', '{data[9]}', '{data[10]}', '{data[11].Substring(8)}', '{id}')";
+                        insertValues = $"('{data[0]}', '{data[1]}', '{data[2]}', '{data[3]}', '{data[4]}', '{data[5]}', '{data[6]}', '{data[7]}', '{data[8]}', '{data[9]}', '{data[10]}', '{data[11]}', '{id}')";
                         /*Console.WriteLine($"{insertValues}");*/
                         /*}*/
                         strBuilder.Append(insertValues);
