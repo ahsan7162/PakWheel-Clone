@@ -18,9 +18,9 @@ namespace IPT_project.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index(string brand_name)
+        public ActionResult Index(string brand_name,string price)
         {
-            if(brand_name == null)
+            if(brand_name == null  && price == null)
             {
                 //string Json = System.IO.File.ReadAllText("D:\\semester_7\\IPT\\IPT_project\\PythonScrapping\\data.json");
                 //JavaScriptSerializer ser = new JavaScriptSerializer();
@@ -68,9 +68,16 @@ namespace IPT_project.Controllers
                 SqlDataReader reader;
                 string sql;
                 sql = "select * from IPT_CourseProject.dbo.AdsData";
-                if (brand_name != null)
+                if (brand_name != null && brand_name != "")
                 {
                     sql = sql + " where brand_name = @brand_name";
+                }
+                if (price != null && price != "")
+                {
+                    if (price == "1")
+                        sql = sql + " order by price DESC";
+                    if (price == "2")
+                        sql = sql + " order by price ASC";
                 }
                 Console.WriteLine(sql);
                 command = new SqlCommand(sql, conn);

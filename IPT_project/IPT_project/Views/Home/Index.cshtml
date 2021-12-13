@@ -52,7 +52,13 @@
 <h2>Filter Cars</h2>
 <form>
     <label>Brand Name:</label>
-    <input type="text" name="brand_name" id="brand_name"/>
+    <input type="text" name="brand_name" id="brand_name" />
+    <label>Price:</label>
+    <select name="price" id="price">
+        <option value="0">Default</option>
+        <option value="1">High To Low</option>
+        <option value="2">Low To High</option>
+    </select>
     <button type="submit">Search</button>
 </form>
 
@@ -66,7 +72,7 @@
     {
         <div class="col-sm-4">
             <div class="card border border-light mb-3" style="width:20rem">
-                <div style="height: 150px; background-color:black; background-size: cover; justify-items:center "> <img src="@item.image_url" style=" height:100%; display: flex; "></div>
+                <div style="height: 150px; background-color:black; background-size: cover; justify-items:center "> <img alt="img" src="https://@item.image_url" style=" height:100%; display: flex; "></div>
 
                 <div class="card-body">
                     <h5 class="card-title">@item.description</h5>
