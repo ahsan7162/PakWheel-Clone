@@ -52,59 +52,79 @@
 <h2>Filter Cars</h2>
 <p style="color:red">@ViewBag.error</p>
 <form>
-    <label>Car Name:</label>
-    <input type="text" name="car_name" id="car_name" />
-    <label>Brand Name:</label>
-    <input type="text" name="brand_name" id="brand_name" />
-    <label>Price:</label>
-    <select name="price" id="price">
-        <option value="0">Default</option>
-        <option value="1">High To Low</option>
-        <option value="2">Low To High</option>
-    </select>
-    <label>Transmission</label>
-    <select name="transmission" id="transmission">
-        <option value="0">Default</option>
-        <option value="1">Manual</option>
-        <option value="2">Automatic</option>
-    </select>
-    <br />
-    <label>Minimum Model year</label>
-    <select name="min_year">
-        <option value="0">Default</option>
-        @{
-            for (var i = 2000; i < 2022; i++)
-            {
-                <option value=@i> @i </option>
+    <div class="row">
+        <div class="col">
+            <label>Car Name:</label>
+            <input type="text" name="car_name" id="car_name" class="form-control"  placeholder="Car Name"/>
+        </div>
+        <div class="col">
+            <label>Brand Name:</label>
+            <input type="text" class="form-control" name="brand_name" id="brand_name" placeholder="Brand Name" />
+        </div>
+        <div class="col">
+            <label>Price:</label>
+            <select name="price" id="price" class="form-control">
+                <option value="0">Default</option>
+                <option value="1">High To Low</option>
+                <option value="2">Low To High</option>
+            </select>
+        </div>
+        <div class="col">
+            <label>Transmission</label>
+            <select name="transmission" id="transmission" class="form-control">
+                <option value="0">Default</option>
+                <option value="1">Manual</option>
+                <option value="2">Automatic</option>
+            </select>
+            <br />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <label>Minimum Model year</label>
+            <select name="min_year" class="form-control">
+                <option value="0">Default</option>
+                @{
+                    for (var i = 2000; i < 2022; i++)
+                    {
+                        <option value=@i> @i </option>
 
-            }
-        }
-    </select>
-    <label>Maximum Model year</label>
-    <select name="max_year">
-        <option value="0">Default</option>
-        @{
-            for (var i = 2000; i < 2022; i++)
-            {
-                <option value=@i> @i </option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="col-sm-4">
+            <label>Maximum Model year</label>
+            <select name="max_year" class="form-control">
+                <option value="0">Default</option>
+                @{
+                    for (var i = 2000; i < 2022; i++)
+                    {
+                        <option value=@i> @i </option>
 
-            }
-        }
-    </select>
-    <label>Fuel Type</label>
-    <select name="fuel">
-        <option value="0">Default</option>
-        <option value="petrol">Petrol</option>
-        <option value="diesel">Diesel</option>
-        <option value="LPG">LPG</option>
-        <option value="CNG">CNG</option>
-        <option value="Hybrid">Hybrid</option>
-        <option value="Electric">Electric</option>
-    </select>
+                    }
+                }
+            </select>
+        </div>
+        <div class="col-sm-4">
+            <label>Fuel Type</label>
+            <select name="fuel" class="form-control">
+                <option value="0">Default</option>
+                <option value="petrol">Petrol</option>
+                <option value="diesel">Diesel</option>
+                <option value="LPG">LPG</option>
+                <option value="CNG">CNG</option>
+                <option value="Hybrid">Hybrid</option>
+                <option value="Electric">Electric</option>
+            </select>
+        </div>
+    </div>
     <br />
-    <button type="submit">Search</button>
+    <button type="submit" class="btn btn-primary btn-block">Search</button>
 </form>
 
+<br />
+<br />
 
 <h2 style="text-align:center">List of Available Cars</h2>
 <br />
