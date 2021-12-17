@@ -19,39 +19,41 @@ namespace IPT_project.Controllers
     public class HomeController : Controller
     {
         public static dynamic globalJsonObject;
+        public static DataTable dataTable = new DataTable();
+        public static DataTable temp = new DataTable();
         public ActionResult Index(string brand_name, string price, string transmission,string max_year , string min_year ,string fuel, string car_name)
         {
-            if((max_year!=null && max_year!="0") &&(min_year!=null && min_year != "0")){
-                if (int.Parse(min_year) > int.Parse(max_year))
-                {
-                    ViewBag.error = "min year cannot be greater then max year";
-                    List<carCard> cars = new List<carCard>();
-                    string connString = "Server = localhost;Database = master;Trusted_Connection=True";
+            //if((max_year!=null && max_year!="0") &&(min_year!=null && min_year != "0")){
+            //    if (int.Parse(min_year) > int.Parse(max_year))
+            //    {
+            //        ViewBag.error = "min year cannot be greater then max year";
+            //        List<carCard> cars = new List<carCard>();
+            //        string connString = "Server = localhost;Database = master;Trusted_Connection=True";
 
-                    SqlConnection conn = new SqlConnection(connString);
-                    Console.WriteLine("Openning Connection ...");
+            //        SqlConnection conn = new SqlConnection(connString);
+            //        Console.WriteLine("Openning Connection ...");
 
-                    //open connection
-                    conn.Open();
+            //        //open connection
+            //        conn.Open();
 
-                    Console.WriteLine("Connection successful!");
+            //        Console.WriteLine("Connection successful!");
 
-                    SqlCommand command;
-                    SqlDataReader reader;
-                    string sql;
-                    sql = "select * from IPT_CourseProject.dbo.AdsData";
-                    command = new SqlCommand(sql, conn);
-                    reader = command.ExecuteReader();
-                    while (reader.Read())
-                    { 
-                        cars.Add(new carCard { ad_id = reader.GetValue(0).ToString(), brand_name = reader.GetValue(1).ToString(), item_condition = reader.GetValue(2).ToString(), model_year = reader.GetValue(3).ToString(), manufacturer = reader.GetValue(4).ToString(), fuel_type = reader.GetValue(5).ToString(), transmission = reader.GetValue(6).ToString(), engine_capacity = reader.GetValue(7).ToString(), description = reader.GetValue(8).ToString(), engine_milegage = reader.GetValue(9).ToString(), image_url = reader.GetValue(11).ToString(), price = reader.GetValue(12).ToString() });
+            //        SqlCommand command;
+            //        SqlDataReader reader;
+            //        string sql;
+            //        sql = "select * from IPT_CourseProject.dbo.AdsData";
+            //        command = new SqlCommand(sql, conn);
+            //        reader = command.ExecuteReader();
+            //        while (reader.Read())
+            //        { 
+            //            cars.Add(new carCard { ad_id = reader.GetValue(0).ToString(), brand_name = reader.GetValue(1).ToString(), item_condition = reader.GetValue(2).ToString(), model_year = reader.GetValue(3).ToString(), manufacturer = reader.GetValue(4).ToString(), fuel_type = reader.GetValue(5).ToString(), transmission = reader.GetValue(6).ToString(), engine_capacity = reader.GetValue(7).ToString(), description = reader.GetValue(8).ToString(), engine_milegage = reader.GetValue(9).ToString(), image_url = reader.GetValue(11).ToString(), price = reader.GetValue(12).ToString() });
 
-                    }
-                    return View(cars);
+            //        }
+            //        return View(cars);
 
-                }
-            }
-            if(car_name==null && brand_name == null  && (price == "0" || price == null) && (transmission == "0" || transmission == null) && (max_year == "0" || max_year == null) && (min_year == "0" || min_year == null) && (fuel == "0" || fuel == null))
+            //    }
+            //}
+            if(car_name==null /*&& brand_name == null  && (price == "0" || price == null) && (transmission == "0" || transmission == null) && (max_year == "0" || max_year == null) && (min_year == "0" || min_year == null) && (fuel == "0" || fuel == null)*/)
             {
                 ViewBag.error = "";
                 //string Json = System.IO.File.ReadAllText("D:\\semester_7\\IPT\\IPT_project\\PythonScrapping\\data.json");
@@ -109,96 +111,96 @@ namespace IPT_project.Controllers
                 SqlDataReader reader;
                 string sql;
                 sql = "select * from IPT_CourseProject.dbo.AdsData";
-                if(brand_name != "" || transmission !="0" || min_year =="0" || max_year == "0" || fuel != "0" || car_name != "")
+                if(/*brand_name != "" || transmission !="0" || min_year =="0" || max_year == "0" || fuel != "0" ||*/ car_name != "")
                 {
-                    sql = sql + " where";
+                    sql = sql + " where car_name LIKE '%" + @brand_name + "%'";
                 }
-                if (brand_name != null && brand_name != "")
-                {
-                    sql = sql + " brand_name LIKE '%"+@brand_name+"%'";
-                }
-                if(transmission != null && transmission != "" && transmission !="0")
-                {
-                    if(brand_name != "")
-                    {
-                        sql = sql + " AND transmission = @transmission";
-                    }
-                    else
-                    {
-                        sql = sql + " transmission = @transmission";
-                    }
-                }
-                if(min_year != null && min_year != "" && max_year != null && max_year != "")
-                {
-                    if(brand_name != "" || transmission != "0")
-                    {
-                        sql = sql + " AND model_year >= @min_year AND model_year <= @max_year";
-                    }
-                    else
-                    {
+                //if (brand_name != null && brand_name != "")
+                //{
+                //    sql = sql + " brand_name LIKE '%"+@brand_name+"%'";
+                //}
+                //if(transmission != null && transmission != "" && transmission !="0")
+                //{
+                //    if(brand_name != "")
+                //    {
+                //        sql = sql + " AND transmission = @transmission";
+                //    }
+                //    else
+                //    {
+                //        sql = sql + " transmission = @transmission";
+                //    }
+                //}
+                //if(min_year != null && min_year != "" && max_year != null && max_year != "")
+                //{
+                //    if(brand_name != "" || transmission != "0")
+                //    {
+                //        sql = sql + " AND model_year >= @min_year AND model_year <= @max_year";
+                //    }
+                //    else
+                //    {
 
-                        sql = sql + " model_year >= @min_year AND model_year <= @max_year";
-                    }
-                }
-                if (fuel !="0")
-                {
-                    if (brand_name != "" || transmission != "0" || min_year!="" || max_year !="")
-                    {
-                        sql = sql + " AND fuel_type = @fuel";
-                    }
-                    else
-                    {
-                        sql = sql + " fuel_type = @fuel";
-                    }
-                }
+                //        sql = sql + " model_year >= @min_year AND model_year <= @max_year";
+                //    }
+                //}
+                //if (fuel !="0")
+                //{
+                //    if (brand_name != "" || transmission != "0" || min_year!="" || max_year !="")
+                //    {
+                //        sql = sql + " AND fuel_type = @fuel";
+                //    }
+                //    else
+                //    {
+                //        sql = sql + " fuel_type = @fuel";
+                //    }
+                //}
 
-                if (car_name != null && car_name != "")
-                {
-                    if(brand_name != "" || transmission != "0" || min_year != "" || max_year != "" || fuel != "0"){
-                        sql = sql + " AND description LIKE '%" + @car_name + "%'";
-                    }
-                    else
-                    {
-                        sql = sql + "description LIKE '%" + @car_name + "%'";
-                    }
-                }
+                //if (car_name != null && car_name != "")
+                //{
+                //    if(brand_name != "" || transmission != "0" || min_year != "" || max_year != "" || fuel != "0"){
+                //        sql = sql + " AND description LIKE '%" + @car_name + "%'";
+                //    }
+                //    else
+                //    {
+                //        sql = sql + "description LIKE '%" + @car_name + "%'";
+                //    }
+                //}
 
-                    if (price != null && price != "")
-                {
-                    if (price == "1")
-                        sql = sql + " order by price DESC";
-                    if (price == "2")
-                        sql = sql + " order by price ASC";
-                }
+                //    if (price != null && price != "")
+                //{
+                //    if (price == "1")
+                //        sql = sql + " order by price DESC";
+                //    if (price == "2")
+                //        sql = sql + " order by price ASC";
+                //}
                 Console.WriteLine(sql);
                 command = new SqlCommand(sql, conn);
-                command.Parameters.AddWithValue("brand_name", brand_name);
+                //command.Parameters.AddWithValue("brand_name", brand_name);
                 command.Parameters.AddWithValue("car_name", car_name);
-                if(min_year == "0")
-                {
-                    command.Parameters.AddWithValue("min_year", "2000");
-                }
-                else
-                {
-                    command.Parameters.AddWithValue("min_year", min_year);
-                }
-                if(max_year == "0")
-                {
-                    command.Parameters.AddWithValue("max_year", "2022");
-                }
-                else
-                {
-                    command.Parameters.AddWithValue("max_year", max_year);
-                }
-                if(transmission == "1")
-                {
-                    command.Parameters.AddWithValue("transmission", "Manual");
-                }
-                if (transmission == "2")
-                {
-                    command.Parameters.AddWithValue("transmission", "Automatic");
-                }
-                command.Parameters.AddWithValue("fuel", fuel);
+                //if(min_year == "0")
+                //{
+                //    command.Parameters.AddWithValue("min_year", "2000");
+                //}
+                //else
+                //{
+                //    command.Parameters.AddWithValue("min_year", min_year);
+                //}
+                //if(max_year == "0")
+                //{
+                //    command.Parameters.AddWithValue("max_year", "2022");
+                //}
+                //else
+                //{
+                //    command.Parameters.AddWithValue("max_year", max_year);
+                //}
+                //if(transmission == "1")
+                //{
+                //    command.Parameters.AddWithValue("transmission", "Manual");
+                //}
+                //if (transmission == "2")
+                //{
+                //    command.Parameters.AddWithValue("transmission", "Automatic");
+                //}
+                //command.Parameters.AddWithValue("fuel", fuel);
 
                 reader = command.ExecuteReader();
                 while (reader.Read())
@@ -333,6 +335,162 @@ namespace IPT_project.Controllers
             dynamic jsonObject = Task.Run(async () => await Run1(urlToInvoke)).Result;
             ViewBag.json = jsonObject;
             return View();
+        }
+
+        public ActionResult Search(string car_name ,string price, string transmission, string min_year, string max_year, string fuel)
+        {
+            ViewBag.trans = "0";
+            ViewBag.fuel = "0";
+            ViewBag.min_year = "0";
+            ViewBag.max_year = "0";
+            ViewBag.price = "0";
+
+
+            if (car_name != null)
+            {
+                ViewBag.error = "";
+                List<carCard> cars = new List<carCard>();
+                string connString = "Server = localhost;Database = master;Trusted_Connection=True";
+
+                SqlConnection conn = new SqlConnection(connString);
+                Console.WriteLine("Openning Connection ...");
+
+                //open connection
+                conn.Open();
+
+                Console.WriteLine("Connection successful!");
+
+                SqlCommand command;
+                SqlDataReader reader;
+                string sql;
+
+
+                sql = "select * from IPT_CourseProject.dbo.AdsData where description LIKE '%" + @car_name + "%'";
+                command = new SqlCommand(sql, conn);
+                command.Parameters.AddWithValue("car_name", car_name);
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                da.Fill(dataTable);
+                Console.WriteLine(dataTable);
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    cars.Add(new carCard { ad_id = reader.GetValue(0).ToString(), brand_name = reader.GetValue(1).ToString(), item_condition = reader.GetValue(2).ToString(), model_year = reader.GetValue(3).ToString(), manufacturer = reader.GetValue(4).ToString(), fuel_type = reader.GetValue(5).ToString(), transmission = reader.GetValue(6).ToString(), engine_capacity = reader.GetValue(7).ToString(), description = reader.GetValue(8).ToString(), engine_milegage = reader.GetValue(9).ToString(), image_url = reader.GetValue(11).ToString(), price = reader.GetValue(12).ToString() });
+
+                }
+                temp = dataTable;
+                return View(cars);
+            }
+            else
+            {
+                dataTable = temp;
+                ViewBag.error = "";
+                if(price!=null || price != "0")
+                {
+                    if(price == "1")
+                    {
+                        ViewBag.price = "1";
+                        dataTable.DefaultView.Sort = "price desc";
+                        dataTable = dataTable.DefaultView.ToTable();
+                    }
+                    if (price == "2")
+                    {
+                        ViewBag.price = "2";
+                        dataTable.DefaultView.Sort = "price asc";
+                        dataTable = dataTable.DefaultView.ToTable();
+                    }
+                }
+                if(transmission!=null || transmission != "0")
+                {
+                    if(transmission == "1")
+                    {
+                        ViewBag.trans = "1";
+                        dataTable = dataTable.Select("transmission = 'manual'").CopyToDataTable();
+                    }
+                    if (transmission == "2")
+                    {
+                        ViewBag.trans = "2";
+                        dataTable = dataTable.Select("transmission = 'automatic'").CopyToDataTable();
+                    }
+                }
+
+                if(fuel != null || fuel != "0")
+                {
+                    if (fuel == "petrol")
+                    {
+                        ViewBag.fuel = "petrol";
+                        dataTable = dataTable.Select("fuel_type = 'petrol'").CopyToDataTable();
+                    }
+
+                    if (fuel == "diesel")
+                    {
+                        ViewBag.fuel = "diesel";
+                        dataTable = dataTable.Select("fuel_type = 'diesel'").CopyToDataTable();
+                    }
+                    if (fuel == "LPG")
+                    {
+                        ViewBag.fuel = "LPG";
+                        dataTable = dataTable.Select("fuel_type = 'petrol'").CopyToDataTable();
+                    }
+                    if (fuel == "CNG")
+                    {
+                        ViewBag.fuel = "CNG";
+                        dataTable = dataTable.Select("fuel_type = 'CNG'").CopyToDataTable();
+                    }
+                    if (fuel == "Electric")
+                    {
+                        ViewBag.fuel = "Electric";
+                        dataTable = dataTable.Select("fuel_type = 'Electric'").CopyToDataTable();
+                    }
+                    if (fuel == "Hybrid")
+                    {
+                        ViewBag.fuel = "Hybrid";
+                        dataTable = dataTable.Select("fuel_type = 'Hybrid'").CopyToDataTable();
+                    }
+                }
+                if((min_year!=null) && (max_year!=null))
+                {
+                    ViewBag.min_year = min_year;
+                    ViewBag.min_year = max_year;
+                    if (int.Parse(min_year) > int.Parse(max_year))
+                    {
+                        
+                        ViewBag.error = "min year cannot be greater then max year";
+                    }
+                    else
+                    {
+                        if(max_year == "0")
+                        {
+                            max_year = "2022";
+                        }
+                        if(min_year == "0")
+                        {
+                            min_year = "2000";
+                        }
+                        dataTable = dataTable.Select("model_year >= '" + min_year + "' AND model_year <= '" + max_year + "'").CopyToDataTable();
+                    }
+                }
+
+                List<carCard> cars = new List<carCard>();
+                cars = (from DataRow dr in dataTable.Rows
+                               select new carCard()
+                               {
+                                    ad_id = dr["ad_id"].ToString(),
+                                    brand_name = dr["brand_name"].ToString(),
+                                    item_condition = dr["item_condition"].ToString(),
+                                    model_year = dr["model_year"].ToString(),
+                                    manufacturer = dr["manufacturer"].ToString(),
+                                    fuel_type = dr["fuel_type"].ToString(),
+                                    transmission = dr["transmission"].ToString(),
+                                    engine_capacity = dr["engine_capacity"].ToString(),
+                                    description = dr["description"].ToString(),
+                                    engine_milegage = dr["engine_mileage"].ToString(),
+                                    image_url = dr["image_url"].ToString(),
+                                    price = dr["price"].ToString()
+                               }).ToList();
+                return View(cars);
+            }
+
+            
         }
 
     }

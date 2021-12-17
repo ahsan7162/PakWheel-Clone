@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<IPT_project.Models.carCard>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Search";
 }
 
-<h2 style="text-align:center">Welcome To World of Cars</h2>
-<div class="container-sm my-0" >
+<h2 style="text-align:center">Search</h2>
+<div class="container-sm my-0">
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -49,58 +49,51 @@
 <br />
 <br />
 
-<h2>Filter Cars</h2>
-<p style="color:red">@ViewBag.error</p>
-<form action="/Home/Search">
+
+
+<h2>Filters</h2>
+<br />
+<form>
+    <p style="color:red">@ViewBag.error</p>
     <div class="row">
         <div class="col">
-            <label>Car Name:</label>
-            <input required type="text" name="car_name" id="car_name" class="form-control"  placeholder="Car Name"/>
-        </div>
-        @*<div class="col">
-            <label>Brand Name:</label>
-            <input type="text" class="form-control" name="brand_name" id="brand_name" placeholder="Brand Name" />
-        </div>*@
-        @*<div class="col">
             <label>Price:</label>
             <select name="price" id="price" class="form-control">
-                <option value="0">Default</option>
-                <option value="1">High To Low</option>
-                <option value="2">Low To High</option>
+                <option value="0" @if (ViewBag.price == "0") {<text>selected</text>}>Default</option>
+                <option value="1" @if (ViewBag.price == "1") {<text>selected</text>}>High To Low</option>
+                <option value="2" @if (ViewBag.price == "2") {<text>selected</text>}>Low To High</option>
             </select>
         </div>
         <div class="col">
             <label>Transmission</label>
             <select name="transmission" id="transmission" class="form-control">
-                <option value="0">Default</option>
-                <option value="1">Manual</option>
-                <option value="2">Automatic</option>
+                <option value="0" @if (ViewBag.trans == "0") {<text>selected</text>}>Default</option>
+                <option value="1" @if (ViewBag.trans == "1") {<text>selected</text>}>Manual</option>
+                <option value="2" @if (ViewBag.trans == "2") {<text>selected</text>}>Automatic</option>
             </select>
             <br />
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-4">
+        <div class="col">
             <label>Minimum Model year</label>
-            <select name="min_year" class="form-control">
+            <select name="min_year" class="form-control" @if (ViewBag.min_year == "0") {<text>selected</text>}>
                 <option value="0">Default</option>
                 @{
                     for (var i = 2000; i < 2022; i++)
                     {
-                        <option value=@i> @i </option>
+                        <option value=@i @if (ViewBag.min_year == i.ToString()) {<text>selected</text>}> @i </option>
 
                     }
                 }
             </select>
         </div>
-        <div class="col-sm-4">
+        <div class="col">
             <label>Maximum Model year</label>
             <select name="max_year" class="form-control">
-                <option value="0">Default</option>
+                <option value="0" @if (ViewBag.max_year == "0") {<text>selected</text>}>Default</option>
                 @{
                     for (var i = 2000; i < 2022; i++)
                     {
-                        <option value=@i> @i </option>
+                        <option value=@i @if (ViewBag.max_year == i.ToString()) {<text>selected</text>}> @i </option>
 
                     }
                 }
@@ -109,25 +102,18 @@
         <div class="col-sm-4">
             <label>Fuel Type</label>
             <select name="fuel" class="form-control">
-                <option value="0">Default</option>
-                <option value="petrol">Petrol</option>
-                <option value="diesel">Diesel</option>
-                <option value="LPG">LPG</option>
-                <option value="CNG">CNG</option>
-                <option value="Hybrid">Hybrid</option>
-                <option value="Electric">Electric</option>
+                <option value="0" @if (ViewBag.fuel == "0") {<text>selected</text>}>Default</option>
+                <option value="petrol" @if (ViewBag.fuel == "petrol") {<text>selected</text>}>Petrol</option>
+                <option value="diesel" @if (ViewBag.fuel == "diesel") {<text>selected</text>}>Diesel</option>
+                <option value="LPG" @if (ViewBag.fuel == "LPG") {<text>selected</text>}>LPG</option>
+                <option value="CNG" @if (ViewBag.fuel == "CNG") {<text>selected</text>}>CNG</option>
+                <option value="Hybrid" @if (ViewBag.fuel == "Hybrid") {<text>selected</text>}>Hybrid</option>
+                <option value="Electric" @if (ViewBag.fuel == "Electric") {<text>selected</text>}>Electric</option>
             </select>
         </div>
-    </div>*@
-    <br />
-    <button type="submit" class="btn btn-primary btn-block">Search</button>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Submit</button>
 </form>
-
-<br />
-<br />
-
-<h2 style="text-align:center">List of Available Cars</h2>
-<br />
 
 
 <div class="card-group">
@@ -158,3 +144,6 @@
 
 </div>
 
+
+<h2>Search</h2>
+<h1> @ViewBag.trans</h1>
