@@ -384,21 +384,7 @@ namespace IPT_project.Controllers
             {
                 dataTable = temp;
                 ViewBag.error = "";
-                if(price!=null || price != "0")
-                {
-                    if(price == "1")
-                    {
-                        ViewBag.price = "1";
-                        dataTable.DefaultView.Sort = "price desc";
-                        dataTable = dataTable.DefaultView.ToTable();
-                    }
-                    if (price == "2")
-                    {
-                        ViewBag.price = "2";
-                        dataTable.DefaultView.Sort = "price asc";
-                        dataTable = dataTable.DefaultView.ToTable();
-                    }
-                }
+                
                 if(transmission!=null || transmission != "0")
                 {
                     if(transmission == "1")
@@ -467,6 +453,26 @@ namespace IPT_project.Controllers
                             min_year = "2000";
                         }
                         dataTable = dataTable.Select("model_year >= '" + min_year + "' AND model_year <= '" + max_year + "'").CopyToDataTable();
+                    }
+                }
+
+                if (price != null || price != "0")
+                {
+                    if (price == "1")
+                    {
+                        ViewBag.price = "1";
+                        //dataTable.DefaultView.Sort = "price desc";
+                        //dataTable = dataTable.DefaultView.ToTable();
+
+                        dataTable = dataTable.Select("", "price DESC").CopyToDataTable();
+                        Console.WriteLine(dataTable);
+                    }
+                    if (price == "2")
+                    {
+                        ViewBag.price = "2";
+                        //dataTable.DefaultView.Sort = "price asc";
+                        //dataTable = dataTable.DefaultView.ToTable();
+                        dataTable = dataTable.Select("", "price ASC").CopyToDataTable();
                     }
                 }
 
