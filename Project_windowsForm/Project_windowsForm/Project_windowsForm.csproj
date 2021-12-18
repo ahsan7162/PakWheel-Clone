@@ -73,6 +73,9 @@
     <Compile Include="Form4.Designer.cs">
       <DependentUpon>Form4.cs</DependentUpon>
     </Compile>
+    <Compile Include="IPT_CourseProjectDataSet.cs">
+      <DependentUpon>IPT_CourseProjectDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="IPT_CourseProjectDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

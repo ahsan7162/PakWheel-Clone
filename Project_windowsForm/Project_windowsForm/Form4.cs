@@ -51,7 +51,15 @@ namespace Project_windowsForm
                 string price = textBox9.Text;
                 string image_url = textBox10.Text;
 
-                string connString = "Server = localhost;Database = master;Trusted_Connection=True";
+                var dataSource = "DESKTOP-D0VQCM8\\MSSQLSERVERDEV";
+                var database = "IPT_CourseProject";
+                var username = "sa";
+                var password = "owais123";
+
+                string connString = @"Data Source=" + dataSource + ";Initial Catalog="
+                        + database + ";Persist Security Info=True;User ID=" + username + ";Password=" + password;
+
+                /*string connString = "Server = localhost;Database = master;Trusted_Connection=True";*/
 
                 SqlConnection conn = new SqlConnection(connString);
                 Console.WriteLine("Openning Connection ...");
@@ -60,7 +68,7 @@ namespace Project_windowsForm
                 conn.Open();
 
                 Console.WriteLine("Connection successful!");
-                string sql = "insert into IPT_CourseProject.dbo.Temp2 ([ad_id],[brand_name],[item_condition],[model_year],[manufacturer],[fuel_type],[transmission],[engine_capacity] ,[description],[engine_mileage],[image_url],[price]) values (@ad_id,@brand_name,@item_condition,@model_year,@manu,@fuel,@trans,@eng_cap,@descrip,@engg_mil,@img_url,@price)";
+                string sql = "insert into IPT_CourseProject.dbo.AdsData ([ad_id],[brand_name],[item_condition],[model_year],[manufacturer],[fuel_type],[transmission],[engine_capacity] ,[description],[engine_mileage],[details_url],[image_url],[price]) values (@ad_id,@brand_name,@item_condition,@model_year,@manu,@fuel,@trans,@eng_cap,@descrip,@engg_mil,@details_url, @img_url,@price)";
 
                 try
                 {
@@ -76,6 +84,7 @@ namespace Project_windowsForm
                         cmd.Parameters.AddWithValue("eng_cap",engine_capacity);
                         cmd.Parameters.AddWithValue("descrip",ad_name);
                         cmd.Parameters.AddWithValue("engg_mil",engine_mileage);
+                        cmd.Parameters.AddWithValue("details_url", "https://fetch-dummy-data.com");
                         cmd.Parameters.AddWithValue("img_url", image_url);
                         cmd.Parameters.AddWithValue("price",price);
                         int rowsAdded = cmd.ExecuteNonQuery();
