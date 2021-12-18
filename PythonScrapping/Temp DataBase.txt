@@ -1,0 +1,15 @@
+CREATE TABLE dbo.Temp2
+	(
+	ad_id varchar(MAX) NOT NULL,
+	brand_name varchar(MAX) not null,
+	item_condition varchar(MAX) NOT NULL,
+	model_year varchar(MAX) NOT NULL,
+	manufacturer varchar(MAX) NOT NULL,
+	fuel_type varchar(MAX) NOT NULL,
+	transmission varchar(MAX) NOT NULL,
+	engine_capacity varchar(MAX) NOT NULL,
+	description varchar(MAX) NOT NULL,
+	engine_mileage varchar(MAX) NOT NULL,
+	image_url varchar(MAX) NOT NULL,
+	price varchar(MAX) NOT NULL
+	) 
