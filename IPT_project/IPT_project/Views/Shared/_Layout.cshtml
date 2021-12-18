@@ -37,7 +37,10 @@
     </div>*@
     <nav class="navbar navbar-dark bg-dark">
         @*<img src="C:/Users/HP/Downloads/PngItem_5013318.png" class="navbar-brand" alt="car" style="height:50px; height:50px"/>*@
-            @Html.ActionLink("World Of Cars", "Index", "Home",new { @class = "navbar-brand"})
+            @Html.ActionLink("World Of Cars", "Index", "Home", new { @class = "navbar-brand" })
+            <ul class="nav navbar-nav">
+                <li style="color:white; text-decoration:none">@Html.ActionLink("Live Prices", "Live_price", "Home")</li>
+            </ul>
     </nav>
     <div class="container body-content">
         @RenderBody()

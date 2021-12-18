@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="IPT_CourseProjectModelStoreContainer" CdmEntityContainer="DbModel">
+    <EntitySetMapping Name="AdsDatas">
+      <EntityTypeMapping TypeName="IPT_CourseProjectModel.AdsData">
+        <MappingFragment StoreEntitySet="AdsData">
+          <ScalarProperty Name="ad_id" ColumnName="ad_id" />
+          <ScalarProperty Name="brand_name" ColumnName="brand_name" />
+          <ScalarProperty Name="item_condition" ColumnName="item_condition" />
+          <ScalarProperty Name="model_year" ColumnName="model_year" />
+          <ScalarProperty Name="manufacturer" ColumnName="manufacturer" />
+          <ScalarProperty Name="fuel_type" ColumnName="fuel_type" />
+          <ScalarProperty Name="transmission" ColumnName="transmission" />
+          <ScalarProperty Name="engine_capacity" ColumnName="engine_capacity" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="engine_mileage" ColumnName="engine_mileage" />
+          <ScalarProperty Name="details_url" ColumnName="details_url" />
+          <ScalarProperty Name="image_url" ColumnName="image_url" />
+          <ScalarProperty Name="price" ColumnName="price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

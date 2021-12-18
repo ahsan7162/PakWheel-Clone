@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Live_price";
+}
+
+@{
+    var data = ViewBag.json;
+}
+<h2>Live Price Of Toyota Cars</h2>
+
+
+<div class="card-group">
+    @foreach (var item in data)
+    {
+        <div class="col-sm-4">
+            <div class="card border border-light mb-3" style="width:20rem">
+                <div style="height: 150px; background-color:black; background-size: cover; justify-items:center "> <img alt="img" src="@item.image" style=" height:100%; display: flex; "></div>
+
+                <div class="card-body">
+                    <h5 class="card-title text-center">@item.name</h5>
+
+                    <p class="card-text"><b> @item.slogan</b></p>
+                    <h5 class="card-text text-center text-capitalize" style="color:lightgreen"><b>Price:</b><span>Starting From</span> @item.price <span>PKR</span></h5>
+                    <div class="col text-center">
+                        <a href=@item.url class="btn btn-primary">Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
