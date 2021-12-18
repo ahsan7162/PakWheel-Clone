@@ -61,15 +61,15 @@ namespace IPT_project.Controllers
                 //var carlist = ser.Deserialize<List<CarDetail.Rootobject>>(Json);
                 List<carCard> cars = new List<carCard>();
 
-                //var dataSource = "DESKTOP-D0VQCM8\\MSSQLSERVERDEV";
-                //var database = "IPT_CourseProject";
-                //var username = "sa";
-                //var password = "owais123";
+                var dataSource = "DESKTOP-D0VQCM8\\MSSQLSERVERDEV";
+                var database = "IPT_CourseProject";
+                var username = "sa";
+                var password = "owais123";
 
-                //string connString = @"Data Source=" + dataSource + ";Initial Catalog="
-                //        + database + ";Persist Security Info=True;User ID=" + username + ";Password=" + password;
+                string connString = @"Data Source=" + dataSource + ";Initial Catalog="
+                        + database + ";Persist Security Info=True;User ID=" + username + ";Password=" + password;
 
-                string connString = "Server = localhost;Database = master;Trusted_Connection=True";
+                /*string connString = "Server = localhost;Database = master;Trusted_Connection=True";*/
 
                 SqlConnection conn = new SqlConnection(connString);
                 Console.WriteLine("Openning Connection ...");
@@ -97,7 +97,15 @@ namespace IPT_project.Controllers
             else
             {
                 List<carCard> cars = new List<carCard>();
-                string connString = "Server = localhost;Database = master;Trusted_Connection=True";
+
+                var dataSource = "DESKTOP-D0VQCM8\\MSSQLSERVERDEV";
+                var database = "IPT_CourseProject";
+                var username = "sa";
+                var password = "owais123";
+
+                string connString = @"Data Source=" + dataSource + ";Initial Catalog="
+                        + database + ";Persist Security Info=True;User ID=" + username + ";Password=" + password;
+                /*string connString = "Server = localhost;Database = master;Trusted_Connection=True";*/
 
                 SqlConnection conn = new SqlConnection(connString);
                 Console.WriteLine("Openning Connection ...");
@@ -251,15 +259,15 @@ namespace IPT_project.Controllers
                 ViewBag.id = carID;
 
                 carCard car = new carCard();
-                //var dataSource = "DESKTOP-D0VQCM8\\MSSQLSERVERDEV";
-                //var database = "IPT_CourseProject";
-                //var username = "sa";
-                //var password = "owais123";
+                var dataSource = "DESKTOP-D0VQCM8\\MSSQLSERVERDEV";
+                var database = "IPT_CourseProject";
+                var username = "sa";
+                var password = "owais123";
 
-                //string connString = @"Data Source=" + dataSource + ";Initial Catalog="
-                //        + database + ";Persist Security Info=True;User ID=" + username + ";Password=" + password;
+                string connString = @"Data Source=" + dataSource + ";Initial Catalog="
+                        + database + ";Persist Security Info=True;User ID=" + username + ";Password=" + password;
 
-                string connString = "server = localhost;database = master;trusted_connection=true";
+                /*string connString = "server = localhost;database = master;trusted_connection=true";*/
 
                 SqlConnection conn = new SqlConnection(connString);
 
@@ -297,7 +305,8 @@ namespace IPT_project.Controllers
                     break;
                 }
                 /*string nameToSend = de;*/
-                string baseURL = "https://pakwheelsaddetailsscrapper20211211160440.azurewebsites.net/api/ScrapDetails";
+                string baseURL = "http://localhost:7071/api/ScrapDetails";
+                /*string baseURL = "https://pakwheelsaddetailsscrapper20211211160440.azurewebsites.net/api/ScrapDetails";*/
                 string urlToInvoke = string.Format("{0}?adUrl={1}", baseURL, details_url);
                 dynamic jsonObject = Task.Run(async() => await Run(urlToInvoke)).Result;
                 ViewBag.jsonImages = jsonObject["imageUrls"];
@@ -350,7 +359,15 @@ namespace IPT_project.Controllers
             {
                 ViewBag.error = "";
                 List<carCard> cars = new List<carCard>();
-                string connString = "Server = localhost;Database = master;Trusted_Connection=True";
+
+                var dataSource = "DESKTOP-D0VQCM8\\MSSQLSERVERDEV";
+                var database = "IPT_CourseProject";
+                var username = "sa";
+                var password = "owais123";
+
+                string connString = @"Data Source=" + dataSource + ";Initial Catalog="
+                        + database + ";Persist Security Info=True;User ID=" + username + ";Password=" + password;
+                /*string connString = "Server = localhost;Database = master;Trusted_Connection=True";*/
 
                 SqlConnection conn = new SqlConnection(connString);
                 Console.WriteLine("Openning Connection ...");
