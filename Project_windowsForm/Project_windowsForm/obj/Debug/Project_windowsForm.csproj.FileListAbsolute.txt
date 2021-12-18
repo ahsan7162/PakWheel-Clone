@@ -1,0 +1,16 @@
+D:\semester_7\IPT\IPT_project\Project_windowsForm\Project_windowsForm\bin\Debug\Project_windowsForm.exe.config
+D:\semester_7\IPT\IPT_project\Project_windowsForm\Project_windowsForm\bin\Debug\Project_windowsForm.exe
+D:\semester_7\IPT\IPT_project\Project_windowsForm\Project_windowsForm\bin\Debug\Project_windowsForm.pdb
+D:\semester_7\IPT\IPT_project\Project_windowsForm\Project_windowsForm\obj\Debug\Project_windowsForm.csproj.AssemblyReference.cache
+D:\semester_7\IPT\IPT_project\Project_windowsForm\Project_windowsForm\obj\Debug\Project_windowsForm.Form1.resources
+D:\semester_7\IPT\IPT_project\Project_windowsForm\Project_windowsForm\obj\Debug\Project_windowsForm.Properties.Resources.resources
+D:\semester_7\IPT\IPT_project\Project_windowsForm\Project_windowsForm\obj\Debug\Project_windowsForm.csproj.GenerateResource.cache
+D:\semester_7\IPT\IPT_project\Project_windowsForm\Project_windowsForm\obj\Debug\Project_windowsForm.csproj.CoreCompileInputs.cache
+D:\semester_7\IPT\IPT_project\Project_windowsForm\Project_windowsForm\obj\Debug\Project_windowsForm.exe
+D:\semester_7\IPT\IPT_project\Project_windowsForm\Project_windowsForm\obj\Debug\Project_windowsForm.pdb
+D:\semester_7\IPT\IPT_project\Project_windowsForm\Project_windowsForm\obj\Debug\Project_windowsForm.Form2.resources
+D:\semester_7\IPT\IPT_project\Project_windowsForm\Project_windowsForm\bin\Debug\Newtonsoft.Json.dll
+D:\semester_7\IPT\IPT_project\Project_windowsForm\Project_windowsForm\bin\Debug\Newtonsoft.Json.xml
+D:\semester_7\IPT\IPT_project\Project_windowsForm\Project_windowsForm\obj\Debug\Project_windowsForm.Form3.resources
+D:\semester_7\IPT\IPT_project\Project_windowsForm\Project_windowsForm\obj\Debug\Project_windowsForm.csproj.CopyComplete
+D:\semester_7\IPT\IPT_project\Project_windowsForm\Project_windowsForm\obj\Debug\Project_windowsForm.Form4.resources
