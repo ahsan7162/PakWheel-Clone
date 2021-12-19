@@ -31,9 +31,6 @@ namespace Project_windowsForm
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.iPT_CourseProjectDataSet = new Project_windowsForm.IPT_CourseProjectDataSet();
-            this.adsDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.adsDataTableAdapter = new Project_windowsForm.IPT_CourseProjectDataSetTableAdapters.AdsDataTableAdapter();
             this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.brandnameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,9 +40,13 @@ namespace Project_windowsForm
             this.transmissionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.enginecapacityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.enginemileageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.adsDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.iPT_CourseProjectDataSet = new Project_windowsForm.IPT_CourseProjectDataSet();
+            this.adsDataTableAdapter = new Project_windowsForm.IPT_CourseProjectDataSetTableAdapters.AdsDataTableAdapter();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iPT_CourseProjectDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.adsDataBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iPT_CourseProjectDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -65,25 +66,11 @@ namespace Project_windowsForm
             this.enginecapacityDataGridViewTextBoxColumn,
             this.enginemileageDataGridViewTextBoxColumn});
             this.dataGridView1.DataSource = this.adsDataBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(28, 45);
+            this.dataGridView1.Location = new System.Drawing.Point(26, 73);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(745, 393);
+            this.dataGridView1.Size = new System.Drawing.Size(738, 334);
             this.dataGridView1.TabIndex = 0;
-            // 
-            // iPT_CourseProjectDataSet
-            // 
-            this.iPT_CourseProjectDataSet.DataSetName = "IPT_CourseProjectDataSet";
-            this.iPT_CourseProjectDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // adsDataBindingSource
-            // 
-            this.adsDataBindingSource.DataMember = "AdsData";
-            this.adsDataBindingSource.DataSource = this.iPT_CourseProjectDataSet;
-            // 
-            // adsDataTableAdapter
-            // 
-            this.adsDataTableAdapter.ClearBeforeFill = true;
             // 
             // descriptionDataGridViewTextBoxColumn
             // 
@@ -148,19 +135,46 @@ namespace Project_windowsForm
             this.enginemileageDataGridViewTextBoxColumn.Name = "enginemileageDataGridViewTextBoxColumn";
             this.enginemileageDataGridViewTextBoxColumn.ReadOnly = true;
             // 
+            // adsDataBindingSource
+            // 
+            this.adsDataBindingSource.DataMember = "AdsData";
+            this.adsDataBindingSource.DataSource = this.iPT_CourseProjectDataSet;
+            // 
+            // iPT_CourseProjectDataSet
+            // 
+            this.iPT_CourseProjectDataSet.DataSetName = "IPT_CourseProjectDataSet";
+            this.iPT_CourseProjectDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // adsDataTableAdapter
+            // 
+            this.adsDataTableAdapter.ClearBeforeFill = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(19, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(569, 39);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "List Of Available Cars For Selling ";
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
             this.Name = "Form2";
-            this.Text = "Form2";
+            this.Text = "Car Listing";
             this.Load += new System.EventHandler(this.Form2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iPT_CourseProjectDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.adsDataBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iPT_CourseProjectDataSet)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -179,5 +193,6 @@ namespace Project_windowsForm
         private System.Windows.Forms.DataGridViewTextBoxColumn transmissionDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn enginecapacityDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn enginemileageDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Label label1;
     }
 }

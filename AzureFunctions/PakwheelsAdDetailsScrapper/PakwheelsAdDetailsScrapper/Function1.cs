@@ -42,102 +42,125 @@ namespace PakwheelsAdDetailsScrapper
 
             string url = "https://www.pakwheels.com/used-cars/toyota-hilux-2021-for-sale-in-islamabad-5705506";
 
-            HtmlWeb web = new HtmlWeb();
-            HtmlDocument doc = web.Load(name);
-
             var carFeatures = new List<string>();
-            // scarpping car features
-            try
+            var imageUrls = new List<string>();
+            var desc = string.Empty;
+            if (name == "https://fetch-dummy-data.com")
             {
-                var featureTags = doc.DocumentNode.SelectSingleNode("//ul[@class='list-unstyled car-feature-list nomargin']");
+                // generating dummy response
+                carFeatures.Add("ABS");
+                carFeatures.Add("Airbags");
+                carFeatures.Add("Power Windows");
+                carFeatures.Add("Power Steeting");
+                carFeatures.Add("Power Mirrors");
+                carFeatures.Add("Keyless Entry");
+
+                imageUrls.Add("https://image-url1");
+                imageUrls.Add("https://image-url2");
+                imageUrls.Add("https://image-url3");
+
+                desc = "Bumper to Bumper Genuine car, 100% original\n, Price is non negotiable, only serious buyers contact";
+            }
+            else
+            {
+                HtmlWeb web = new HtmlWeb();
+                HtmlDocument doc = web.Load(name);
+
+
+                // scarpping car features
+                try
+                {
+                    var featureTags = doc.DocumentNode.SelectSingleNode("//ul[@class='list-unstyled car-feature-list nomargin']");
+
+                    try
+                    {
+                        var nestedTags = featureTags.SelectNodes(".//li");
+                        foreach (var nestedTag in nestedTags)
+                        {
+                            carFeatures.Add(nestedTag.InnerText);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // do nothing
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"{ex}");
+                    // do nothing
+                }
+
+
+                // scrapping image urls
 
                 try
                 {
-                    var nestedTags = featureTags.SelectNodes(".//li");
-                    foreach (var nestedTag in nestedTags)
+                    var images = doc.DocumentNode.SelectNodes("//img[@class='lazy-used-car-slider']");
+                    foreach (var image in images)
                     {
-                        carFeatures.Add(nestedTag.InnerText);
+
+                        imageUrls.Add(image.GetAttributeValue("data-original", "no attr"));
                     }
+
                 }
                 catch (Exception ex)
                 {
                     // do nothing
                 }
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"{ex}");
-                // do nothing
-            }
 
 
-            // scrapping image urls
-            var imageUrls = new List<string>();
-            try
-            {
-                var images = doc.DocumentNode.SelectNodes("//img[@class='lazy-used-car-slider']");
-                foreach (var image in images)
+                // scrapping the ad details section
+                try
                 {
+                    var jsonObjectString = doc.DocumentNode.SelectSingleNode("//div[@class='row ad-listing-template mt10']").SelectSingleNode(".//div[@class='col-md-8']").SelectSingleNode(".//script[@type='application/ld+json']").InnerText;
+                    var adListingJsonObj = JsonDocument.Parse(jsonObjectString);
+                    var obj = adListingJsonObj.RootElement;
 
-                    imageUrls.Add(image.GetAttributeValue("data-original", "no attr"));
+                    desc = obj.GetProperty("description").ToString();
+
+                }
+                catch (Exception ex)
+                {
+                    // do nothing
                 }
 
+                // appending features list to response message
+                responseMessage += "=========================================================\n";
+                responseMessage += "==================== CAR FEATURES =======================\n";
+                foreach (var feature in carFeatures)
+                {
+                    responseMessage += "==  " + feature + "\n";
+                }
+                responseMessage += "=========================================================\n\n\n";
+
+                // appending image url to response message
+                responseMessage += "=========================================================\n";
+                responseMessage += "====================== IMAGES URL =======================\n";
+                foreach (var image in imageUrls)
+                {
+                    responseMessage += "==  " + image + "\n";
+                }
+                responseMessage += "=========================================================\n\n\n";
+
+                responseMessage += desc;
+
+
+                /*return new OkObjectResult(responseMessage);*/
+
+
             }
-            catch (Exception ex)
-            {
-                // do nothing
-            }
-
-
-            var desc = string.Empty;
-            // scrapping the ad details section
-            try
-            {
-                var jsonObjectString = doc.DocumentNode.SelectSingleNode("//div[@class='row ad-listing-template mt10']").SelectSingleNode(".//div[@class='col-md-8']").SelectSingleNode(".//script[@type='application/ld+json']").InnerText;
-                var adListingJsonObj = JsonDocument.Parse(jsonObjectString);
-                var obj = adListingJsonObj.RootElement;
-
-                desc = obj.GetProperty("description").ToString();
-
-            }
-            catch (Exception ex)
-            {
-                // do nothing
-            }
-
-            // appending features list to response message
-            responseMessage += "=========================================================\n";
-            responseMessage += "==================== CAR FEATURES =======================\n";
-            foreach (var feature in carFeatures)
-            {
-                responseMessage += "==  " + feature + "\n";
-            }
-            responseMessage += "=========================================================\n\n\n";
-
-            // appending image url to response message
-            responseMessage += "=========================================================\n";
-            responseMessage += "====================== IMAGES URL =======================\n";
-            foreach (var image in imageUrls)
-            {
-                responseMessage += "==  " + image + "\n";
-            }
-            responseMessage += "=========================================================\n\n\n";
-
-            responseMessage += desc;
-
-
-            /*return new OkObjectResult(responseMessage);*/
-
             JsonObject responseObject = new JsonObject();
             responseObject.descriptionText = desc;
             responseObject.imageUrls = imageUrls;
             responseObject.carFeatures = carFeatures;
 
             return new HttpResponseMessage(System.Net.HttpStatusCode.OK)
-                {
-                    Content = new StringContent(JsonConvert.SerializeObject(responseObject, Formatting.Indented), Encoding.UTF8, "application/json")
-                };
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(responseObject, Formatting.Indented), Encoding.UTF8, "application/json")
+            };
         }
     }
 }
