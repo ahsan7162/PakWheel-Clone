@@ -1,11 +1,11 @@
 # IPT Project (Pakwheel Clone)
 
 ## Project Description:
-	The project aims to design a clone application of Pakwheels – a platform used for buying/selling all the accessories and parts associated with cars and motorbikes in Pakistan. In this clone application, my team intends to replicate very little functionality of this reference system i.e. Pakwheels, the purpose of implementing limited functionalities is to learn all the core concepts taught to us in the course of Information Processing Techniques in C# .NET framework like Windows Services, Web Services, API, Azure Function, Web Scraping and much more.
+The project aims to design a clone application of Pakwheels – a platform used for buying/selling all the accessories and parts associated with cars and motorbikes in Pakistan. In this clone application, my team intends to replicate very little functionality of this reference system i.e. Pakwheels, the purpose of implementing limited functionalities is to learn all the core concepts taught to us in the course of Information Processing Techniques in C# .NET framework like Windows Services, Web Services, API, Azure Function, Web Scraping and much more.
   
   
 ## Concepts Used:
-	The core concepts/functionalities implemented in C# for this project includes the use of:
+The core concepts/functionalities implemented in C# for this project includes the use of:
 - Web Service
 - Windows Service
 - Azure Function
@@ -15,7 +15,7 @@
 - Web Scraping
 
 ## Project Features:
-	The project aims to replicate some limited features of Pakwheels application, the feature set includes:
+The project aims to replicate some limited features of Pakwheels application, the feature set includes:
 - Car Buying:
   This feature aims to list all the ads currently available in our database to the users.
 - Car Selling:
@@ -53,7 +53,7 @@ The system works in the following way:
 
 
 ## How to Use the Designed System:
-	The system can be used locally by following the below mentioned steps:
+The system can be used locally by following the below mentioned steps:
 - Create a database in your local storage by the script provided
 - Run the web scraper to scrap list of some ads from pakwheels website
 - Install the windows service
